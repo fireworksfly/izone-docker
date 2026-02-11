@@ -1,19 +1,5 @@
 version: "3"
 services:
-
-  db:
-    restart: always
-    image: ${MYSQL_IMAGE}
-    container_name: izone_db
-    volumes:
-      - ./db/mysql:/var/lib/mysql
-      - ./db/my.cnf:/etc/my.cnf:ro
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${IZONE_MYSQL_NAME}
-    networks:
-      - backend
-
   redis:
     restart: always
     image: ${REDIS_IMAGE}
@@ -27,14 +13,6 @@ services:
     restart: always
     image: ${IZONE_IMAGE}
     container_name: izone_web
-    environment:
-      IZONE_MYSQL_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      IZONE_MYSQL_HOST: db
-      IZONE_MYSQL_NAME: ${IZONE_MYSQL_NAME}
-      IZONE_MYSQL_USER: root
-      IZONE_MYSQL_PORT: 3306
-      IZONE_REDIS_HOST: redis
-      IZONE_REDIS_PORT: 6379
     env_file:
       - ./izone.env
     volumes:
@@ -42,11 +20,10 @@ services:
       - ./web/media:/opt/cloud/izone/media
       - ./web/whoosh_index:/opt/cloud/izone/whoosh_index
       - ./web/log:/opt/cloud/izone/log
+      - ./db/izone.db:/opt/cloud/izone/izone.db
     links:
-      - db
       - redis
     depends_on:
-      - db
       - redis
     networks:
       - backend
