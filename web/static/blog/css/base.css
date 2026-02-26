@@ -327,6 +327,18 @@ ul.checklist li {
     border-radius: .5rem !important;
 }
 
+/* 轮播图等比缩放 */
+.carousel-item {
+    max-height: 450px;
+    background-color: #f8f9fa;
+}
+
+.carousel-item img {
+    max-height: 450px;
+    object-fit: contain;
+    object-position: center;
+}
+
 .carousel-indicators li {
     width: 10px;
     height: 10px;
