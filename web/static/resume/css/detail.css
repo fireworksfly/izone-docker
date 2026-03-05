@@ -1,8 +1,0 @@
-.flex-container {
-    display: flex;
-}
-
-.flex-container .left {
-    flex: auto;
-    text-align: left;
-}
